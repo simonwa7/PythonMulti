@@ -28,7 +28,7 @@ The files included in this repository detail some of my attempts to learn how to
   Additionally, the optional rows and cols input allow the client to define the number of threads used. If no input is given, the program defaults to four threads. When input, the program splits the picture into an even grid based on the number of rows and columns and modifies the picture where each block in the grid is a separate thread.
   
 ### procedural_artist.py
-  This program is designed to "paint a canvas" (a 512x512 jpg) where each thread creates a different artist with a different color. The artists are given a unique starting position on the canvas and paint the canvas pixel by pixel by going up, down, left, or right. If the artist runs into another artist's brush stroke, they choose a random location to begin again from the pixels that they have already painted.
+  This program is designed to "paint a canvas" (a 512x512 jpg) where each thread creates a different artist with a different color. The artists are given a unique starting position on the canvas and paint the canvas pixel by pixel by going up, down, left, or right. If the artist runs into another artist's brush stroke, they choose a random location to begin again from the pixels that they have already painted. It then saves the image as "canvas.jpg".
 
 #### Usage
   To use this program, the input parameters are as follows:
