@@ -137,6 +137,7 @@ def main(input):
 	for thread in threads:
 		thread.join()
 	picture.show()
+	picture.save("canvas.jpg")
 
 if __name__ == '__main__':
 	main(sys.argv)
