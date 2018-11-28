@@ -116,6 +116,7 @@ def main(input):
 	for thread in threads:
 		thread.join()
 	picture.show()
+	picture.save(input[1])
 
 
 
