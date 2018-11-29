@@ -66,22 +66,28 @@ def switchRB(coordinates, pix_map, picture):
 	# Switch the red and blue values for each pixel in the given coordinate range
 	for col in range(coordinates["topLeft"]["x"], coordinates["bottomRight"]["x"]):
 		for row in range(coordinates["topLeft"]["y"], coordinates["bottomRight"]["y"]):
+			counter_lock.acquire()
 			r, g, b = pix_map[col, row]
 			pix_map[col, row] = (b, g, r)
+			counter_lock.release()
 
 def blue(coordinates, pix_map, picture):
 	# Squares the blue value for each pixel in the given coordinate range
 	for col in range(coordinates["topLeft"]["x"], coordinates["bottomRight"]["x"]):
 		for row in range(coordinates["topLeft"]["y"], coordinates["bottomRight"]["y"]):
+			counter_lock.acquire()
 			r, g, b = pix_map[col, row]
 			pix_map[col, row] = (r, g, b*b)
+			counter_lock.release()
 
 def blackAndWhite(coordinates, pix_map, picture):
 	# Not ready
 	for col in range(coordinates["topLeft"]["x"], coordinates["bottomRight"]["x"]):
 		for row in range(coordinates["topLeft"]["y"], coordinates["bottomRight"]["y"]):
+			counter_lock.acquire()
 			r, g, b = pix_map[col, row]
 			pix_map[col, row] = (32, 32, 32)
+			counter_lock.release()
 
 def mirror(coordinates, pix_map, picture):
 	# For each pixel in the current range, set it equal to the pixel reflected over
@@ -89,8 +95,10 @@ def mirror(coordinates, pix_map, picture):
 	width, height = picture.size
 	for col in range(coordinates["topLeft"]["x"], coordinates["bottomRight"]["x"]):
 		for row in range(coordinates["topLeft"]["y"], coordinates["bottomRight"]["y"]):
+			counter_lock.acquire()
 			r, g, b = pix_map[width-col-1, row]
 			pix_map[col, row] = (r, g, b)
+			counter_lock.release()
 
 def mirrorVert(coordinates, pix_map, picture):
 	# For each pixel in the current range, set it equal to the pixel reflected over
@@ -98,8 +106,10 @@ def mirrorVert(coordinates, pix_map, picture):
 	width, height = picture.size
 	for col in range(coordinates["topLeft"]["x"], coordinates["bottomRight"]["x"]):
 		for row in range(coordinates["topLeft"]["y"], coordinates["bottomRight"]["y"]):
+			counter_lock.acquire()
 			r, g, b = pix_map[col, height-row-1]
 			pix_map[col, row] = (r, g, b)
+			counter_lock.release()
 
 # A dictionary containing all the defined transformations
 transforms = {
