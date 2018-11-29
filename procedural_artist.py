@@ -120,6 +120,7 @@ def paint(artistIndex, numSteps, PIX_MAP):
 
 	# loop for each step (defined on input)
 	for i in range(0, numSteps):
+		counter_lock.acquire()
 		# paint the current pixel
 		x = currentPosition["x"]
 		y = currentPosition["y"]
@@ -149,6 +150,7 @@ def paint(artistIndex, numSteps, PIX_MAP):
 			# of pixels for this artist
 			currentPosition = {"x": x, "y": y}
 			ARTISTS[artistIndex].append(currentPosition)
+		counter_lock.release()
 
 
 
