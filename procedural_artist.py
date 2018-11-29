@@ -16,6 +16,9 @@ ARTISTS = []
 # A parallel array to ARTISTS (horizontally) which contains the color
 # of each artist
 ARTISTCOLORS = []
+SHOW = False;
+COUNTER = 0;
+SHOWSTEPS = 500;
 
 def parseInputs(input):
 	# Parse inputs and exit with error if necessary
@@ -105,7 +108,7 @@ def invalidPixel(x, y, PIX_MAP, colorTuple):
 		return True
 	return False
 
-def paint(artistIndex, numSteps, PIX_MAP):
+def paint(artistIndex, numSteps, PIX_MAP, picture):
 	# This function acts as an artist. It starts at the predefined starting location,
 	# paints this pixel, randomly chooses a new direction (up, down, left, right), if the
 	# pixel at the new location is valid (invalidPixel function) it paints that pixel
@@ -117,10 +120,16 @@ def paint(artistIndex, numSteps, PIX_MAP):
 	# get the color
 	color = ARTISTCOLORS[artistIndex]
 	colorTuple = (color["r"], color["g"], color["b"])
+	global SHOW
 
 	# loop for each step (defined on input)
 	for i in range(0, numSteps):
 		counter_lock.acquire()
+		if(SHOW):
+			global COUNTER
+			if((i%SHOWSTEPS == 0) and (COUNTER < i/SHOWSTEPS)):
+				picture.show()
+				COUNTER = i/SHOWSTEPS;
 		# paint the current pixel
 		x = currentPosition["x"]
 		y = currentPosition["y"]
@@ -168,7 +177,7 @@ def main(input):
 
 	threads = []
 	for artistIndex in range(0, len(ARTISTS)):
-		threads.append(threading.Thread(target = paint, args = [artistIndex, input[1], PIX_MAP]))
+		threads.append(threading.Thread(target = paint, args = [artistIndex, input[1], PIX_MAP, picture]))
 
 	for thread in threads:
 		thread.start()
